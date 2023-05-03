@@ -694,7 +694,7 @@ class Document:
 
 			return _from_datastore(response.json())
 
-	def set(self, data, token=None):
+	def set(self, data, token=None, merge=False):
 		""" Add data to a document in firestore.
 
 		| For more details:
@@ -728,9 +728,14 @@ class Document:
 
 			req_ref = f"{self._base_url}:commit?key={self._api_key}"
 
+			if merge:
+				body_msg = pbs_for_set_with_merge(f"{self._base_path}/{'/'.join(path)}", data, True)[0]
+			else:
+				body_msg = pbs_for_set_no_merge(f"{self._base_path}/{'/'.join(path)}", data)[0]
+
 			body = {
 				"writes": [
-					Message.to_dict(pbs_for_set_no_merge(f"{self._base_path}/{'/'.join(path)}", data)[0])
+					Message.to_dict(body_msg)
 					]
 			}
 
