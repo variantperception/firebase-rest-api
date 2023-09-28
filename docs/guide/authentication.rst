@@ -229,7 +229,7 @@ with **Facebook** preset as the provider to use.
 
    # Example usage with Flask
    @auth.route('/login/facebook')
-   def login_google():
+   def login_facebook():
       return redirect(auth.authenticate_login_with_facebook())
 ..
 
@@ -288,6 +288,32 @@ Update stored information or add information into the user's account.
 
    # update user's profile picture
    auth.update_profile(user['idToken'], photo_url='https://i.pinimg.com/originals/c0/37/2f/c0372feb0069e6289eb938b219e0b0a1.jpg')
+..
+
+
+change_email
+--------------
+
+Change the email associated with the user's account.
+
+.. code-block:: python
+
+   # change user's email
+   auth.change_email(user['idToken'], email='iam@ironman.com')
+
+..
+
+
+change_password
+--------------
+
+Change the password associated with the user's account.
+
+.. code-block:: python
+
+   # change user's password
+   auth.change_password(user['idToken'], password='iLoveYou3000')
+
 ..
 
 
